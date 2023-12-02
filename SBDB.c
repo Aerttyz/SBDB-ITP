@@ -117,7 +117,7 @@ void criar_tabela() {
     nova_tabela.colunas[0].primary_key = 1;
     nova_tabela.colunas[0].tipo = 1;
 
-    int numero_colunas = 1; // Começamos com 1 para a coluna ID
+    int numero_colunas = 1;
 
     char opcao;
     do {
@@ -127,8 +127,8 @@ void criar_tabela() {
         if (opcao == 'S' || opcao == 's') {
             printf("Informe o nome da próxima coluna: ");
             scanf(" %[^\n]", nova_tabela.colunas[numero_colunas].nome_coluna);
-            nova_tabela.colunas[numero_colunas].primary_key = 0; // Não é chave primária
-            nova_tabela.colunas[numero_colunas].tipo = 1; // Tipo de dados, exemplo 1 para string
+            nova_tabela.colunas[numero_colunas].primary_key = 0; 
+            nova_tabela.colunas[numero_colunas].tipo = 1; 
             numero_colunas++;
         } else if (opcao != 'N' && opcao != 'n') {
             printf("Opção inválida. Por favor, digite S ou N.\n");

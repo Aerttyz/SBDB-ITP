@@ -55,3 +55,21 @@ cpf	idade	nome
 231232	19	ale	
 321312	20	savio	
 
+Tabela: teste1
+cpf	idade	nome	
+1111	18	ale	
+
+Tabela: teste1
+cpf	idade	nome	
+1111	18	ale	
+2222	20	rper	
+
+Tabela: teste2
+cnpj	produto	preço	
+3123	aes	23,21	
+
+Tabela: teste2
+cnpj	produto	preço	
+3123	aes	23,21	
+312321	asfdsa	3232,4	
+
