@@ -1,0 +1,57 @@
+Tabela: testando teste
+ID	cpf		
+40000	nome	judson	
+
+Tabela: testando teste
+ID	cpf		
+300	nome	judson	
+
+Tabela: testando
+ID	cf		
+1	teste	teste	
+
+Tabela: testando
+ID	cf		
+1	teste	teste	
+2	numeros	2	
+
+Tabela: asfdas
+ID	cpf	
+1	2123	
+
+Tabela: a
+ID	cpf			
+22	coluna	nome	coluna	
+
+Tabela: a
+ID	cpf			
+22	coluna	nome	coluna	
+12	123w21	coluna1	a	
+
+Tabela: teste
+ID	id	a	b	c	
+1	€ÿÿÿÿÿÿÿ@	b	c	d	
+
+Tabela: teste
+ID	id	a	b	c	
+1	€ÿÿÿÿÿÿÿ@	b	c	d	
+2	€ÿÿÿÿÿÿÿ@	d	e	f	
+
+Tabela: teste
+ID	NOME	IDADE	
+11111111	€ÿÿÿÿÿÿÿ@	alesandro	19	
+
+Tabela: teste
+ID	NOME	IDADE	
+11111111	€ÿÿÿÿÿÿÿ@	alesandro	19	
+222222	€ÿÿÿÿÿÿÿ@	savio	19	
+
+Tabela: teste
+cpf	idade	nome	
+231232	19	ale	
+
+Tabela: teste
+cpf	idade	nome	
+231232	19	ale	
+321312	20	savio	
+

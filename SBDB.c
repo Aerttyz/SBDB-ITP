@@ -37,7 +37,6 @@ void inserir_dados_arquivo(Tabela *tabela) {
     }
     
     fprintf(arquivo, "Tabela: %s\n", tabela->nome_tabela);
-    fprintf(arquivo, "ID\t");
     for (int i = 0; i < tabela->numero_coluna; i++) {
         fprintf(arquivo, "%s\t", tabela->colunas[i].nome_coluna);
     }
@@ -45,7 +44,8 @@ void inserir_dados_arquivo(Tabela *tabela) {
     
     for (int i = 0; i < tabela->numero_linha; i++) {
         fprintf(arquivo, "%d\t", tabela->linhas[i].id);
-        for (int j = 0; j < tabela->numero_coluna; j++) {
+        //aqui foi feito outro ajuste técnico
+        for (int j = 1; j < tabela->numero_coluna; j++) {
             fprintf(arquivo, "%s\t", tabela->linhas[i].valores[j]);
         }
         fprintf(arquivo, "\n");
@@ -84,7 +84,8 @@ void criar_linha() {
         printf("Chave primária já existente.\n");
         return;
     }
-    for (int i = 0; i < pegar_tabela->numero_coluna; i++) {
+    //aqui tem ajustes técnicos para poder pegar os valores sem vazar memoria, por isso começa do 1 
+    for (int i = 1; i < pegar_tabela->numero_coluna; i++) {
         printf("%s: ", pegar_tabela->colunas[i].nome_coluna);
         scanf("%s", nova_linha.valores[i]);
     }
@@ -93,14 +94,14 @@ void criar_linha() {
 }
 
 void listar_dados(Tabela *tabela) {
-    printf("Dados da tabela %s:\n", tabela->nome_tabela);
+     printf("Dados da tabela %s:\n", tabela->nome_tabela);
     for (int i = 0; i < tabela->numero_coluna; i++) {
         printf("%s\t", tabela->colunas[i].nome_coluna);
     }
     printf("\n");
     for (int i = 0; i < tabela->numero_linha; i++) {
         printf("%d\t", tabela->linhas[i].id);
-        for (int j = 0; j < tabela->numero_coluna; j++) {
+        for (int j = 1; j < tabela->numero_coluna; j++) {
             printf("%s\t", tabela->linhas[i].valores[j]);
         }
         printf("\n");
@@ -110,13 +111,31 @@ void listar_dados(Tabela *tabela) {
 void criar_tabela() {
     Tabela nova_tabela;
     printf("Informe o nome da tabela: ");
-    scanf("%s", nova_tabela.nome_tabela);
-    printf("Informe o número de colunas: ");
-    scanf("%d", &nova_tabela.numero_coluna);
-    printf("Informe o nome da coluna da chave primária: ");
+    scanf(" %[^\n]", nova_tabela.nome_tabela);
+    printf("Informe o nome da coluna da chave primária (ID): ");
     scanf(" %[^\n]", nova_tabela.colunas[0].nome_coluna);
     nova_tabela.colunas[0].primary_key = 1;
     nova_tabela.colunas[0].tipo = 1;
+
+    int numero_colunas = 1; // Começamos com 1 para a coluna ID
+
+    char opcao;
+    do {
+        printf("Deseja adicionar mais uma coluna? (S/N): ");
+        scanf(" %c", &opcao);
+
+        if (opcao == 'S' || opcao == 's') {
+            printf("Informe o nome da próxima coluna: ");
+            scanf(" %[^\n]", nova_tabela.colunas[numero_colunas].nome_coluna);
+            nova_tabela.colunas[numero_colunas].primary_key = 0; // Não é chave primária
+            nova_tabela.colunas[numero_colunas].tipo = 1; // Tipo de dados, exemplo 1 para string
+            numero_colunas++;
+        } else if (opcao != 'N' && opcao != 'n') {
+            printf("Opção inválida. Por favor, digite S ou N.\n");
+        }
+    } while (opcao != 'N' && opcao != 'n');
+
+    nova_tabela.numero_coluna = numero_colunas;
     numero_tabela++;
     tabelas[numero_tabela - 1] = nova_tabela;
 }
@@ -126,6 +145,66 @@ void listar_tabelas() {
     for (int i = 0; i < numero_tabela; i++) {
         printf("- %s\n", tabelas[i].nome_tabela);
     }
+}
+void pesquisar_valor(){
+    if (numero_tabela == 0) {
+        printf("Não existem tabelas. Crie uma tabela para realizar a pesquisa.\n");
+        return;
+    }
+
+    char nome_tabela[MAX_TAM_COLUNA];
+    printf("Informe o nome da tabela onde deseja pesquisar o valor: ");
+    scanf(" %[^\n]", nome_tabela);
+
+    Tabela *pegar_tabela = NULL;
+    for (int i = 0; i < numero_tabela; i++) {
+        if (strcmp(tabelas[i].nome_tabela, nome_tabela) == 0) {
+            pegar_tabela = &tabelas[i];
+            break;
+        }
+    }
+
+    if (pegar_tabela == NULL) {
+        printf("Tabela não encontrada.\n");
+        return;
+    }
+
+    printf("Colunas disponíveis na tabela %s:\n", pegar_tabela->nome_tabela);
+    for (int i = 0; i < pegar_tabela->numero_coluna; i++) {
+        if(pegar_tabela->colunas[i].primary_key!=1){
+        printf("%d - %s\n", i + 1, pegar_tabela->colunas[i].nome_coluna);
+        }
+    }
+
+    int escolha_coluna;
+    printf("Selecione o número da coluna para a pesquisa: ");
+    scanf("%d", &escolha_coluna);
+    escolha_coluna--;
+
+    if (escolha_coluna < 0 || escolha_coluna >= pegar_tabela->numero_coluna) {
+        printf("Opção de coluna inválida.\n");
+        return;
+    }
+	
+    char tipo_pesquisa;
+    char valor_pesquisa[MAX_COLUNA];
+    int valor_pesquisa_int;
+    printf("Digite S para string ou N para números\n");
+    scanf(" %c", &tipo_pesquisa);
+    if(tipo_pesquisa=='S' || tipo_pesquisa=='s'){
+    	printf("Digite o valor para pesquisa: ");
+    	scanf(" %[^\n]", valor_pesquisa);
+    }else if(tipo_pesquisa=='N' || tipo_pesquisa=='n'){
+    	printf("Digite o valor para pesquisa: ");
+	scanf("%d",&valor_pesquisa_int);
+    }
+    
+    
+    printf("Selecione uma das seguintes opções:\n 1 - Valores maior que o informado\n2 - Valores maior ou igual ao informado\n3 - Valores igual ao informado\n4 - Valores menor que o informado\n5 - Valores menor ou igual ao informado\n6 - Valores próximo ao informado (caso a coluna seja de string)\n");
+    int opcao_pesquisa;
+    printf("Escolha a opção de pesquisa: ");
+    scanf("%d", &opcao_pesquisa);
+
 }
 
 int main() {
@@ -152,7 +231,7 @@ int main() {
                 } else {
                     char nome_tabela[MAX_TAM_COLUNA];
                     printf("Informe a tabela desejada: ");
-                    scanf("%s", nome_tabela);
+                    scanf(" %[^\n]", nome_tabela);
                     Tabela *pegar_tabela = NULL;
                     for (int i = 0; i < numero_tabela; i++) {
                         if (strcmp(tabelas[i].nome_tabela, nome_tabela) == 0) {
@@ -163,6 +242,9 @@ int main() {
                     if (pegar_tabela == NULL) printf("Tabela não existe.\n");
                     else listar_dados(pegar_tabela);
                 }
+                
+            case 5:
+                pesquisar_valor();
                 break;
             case 0:
                 printf("Finalizando...\n");
