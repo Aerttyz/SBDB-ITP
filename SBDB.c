@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX_COLUNA 20
 #define MAX_LINHA 100
@@ -79,7 +80,7 @@ void criar_linha() {
     Linha nova_linha;
     printf("Informe os valores da nova linha:\n");
     printf("Insira o ID (deve ser inteiro e sem sinal): ");
-    scanf("%d", &nova_linha.id);
+    scanf(" %d", &nova_linha.id);
     if (testar_chave_primaria(pegar_tabela, nova_linha.id)) {
         printf("Chave primária já existente.\n");
         return;
@@ -124,7 +125,7 @@ void criar_tabela() {
         printf("Deseja adicionar mais uma coluna? (S/N): ");
         scanf(" %c", &opcao);
 
-        if (opcao == 'S' || opcao == 's') {
+        if (toupper(opcao) == 'S') {
             printf("Informe o nome da próxima coluna: ");
             scanf(" %[^\n]", nova_tabela.colunas[numero_colunas].nome_coluna);
             nova_tabela.colunas[numero_colunas].primary_key = 0; 
@@ -133,7 +134,7 @@ void criar_tabela() {
         } else if (opcao != 'N' && opcao != 'n') {
             printf("Opção inválida. Por favor, digite S ou N.\n");
         }
-    } while (opcao != 'N' && opcao != 'n');
+    } while (toupper(opcao) != 'N');
 
     nova_tabela.numero_coluna = numero_colunas;
     numero_tabela++;
@@ -146,8 +147,10 @@ void listar_tabelas() {
         printf("- %s\n", tabelas[i].nome_tabela);
     }
 }
-void pesquisar_valor(){
-    if (numero_tabela == 0) {
+
+
+void pesquisar_valor() {
+     if (numero_tabela == 0) {
         printf("Não existem tabelas. Crie uma tabela para realizar a pesquisa.\n");
         return;
     }
@@ -171,50 +174,196 @@ void pesquisar_valor(){
 
     printf("Colunas disponíveis na tabela %s:\n", pegar_tabela->nome_tabela);
     for (int i = 0; i < pegar_tabela->numero_coluna; i++) {
-        if(pegar_tabela->colunas[i].primary_key!=1){
-        printf("%d - %s\n", i + 1, pegar_tabela->colunas[i].nome_coluna);
-        }
+        printf("%d - %s\n", i , pegar_tabela->colunas[i].nome_coluna);
     }
 
     int escolha_coluna;
     printf("Selecione o número da coluna para a pesquisa: ");
-    scanf("%d", &escolha_coluna);
-    escolha_coluna--;
+    scanf(" %d", &escolha_coluna);
+    
+    // Ajuste para manipular corretamente o índice da coluna
 
     if (escolha_coluna < 0 || escolha_coluna >= pegar_tabela->numero_coluna) {
         printf("Opção de coluna inválida.\n");
         return;
     }
-	
+    if(escolha_coluna!=0){
     char tipo_pesquisa;
     char valor_pesquisa[MAX_COLUNA];
     int valor_pesquisa_int;
+
     printf("Digite S para string ou N para números\n");
     scanf(" %c", &tipo_pesquisa);
-    if(tipo_pesquisa=='S' || tipo_pesquisa=='s'){
-    	printf("Digite o valor para pesquisa: ");
-    	scanf(" %[^\n]", valor_pesquisa);
-    }else if(tipo_pesquisa=='N' || tipo_pesquisa=='n'){
-    	printf("Digite o valor para pesquisa: ");
-	scanf("%d",&valor_pesquisa_int);
+
+    if (toupper(tipo_pesquisa) == 'S') {
+        printf("Digite o valor para pesquisa: ");
+        scanf(" %[^\n]", valor_pesquisa);
+    } else if (toupper(tipo_pesquisa) == 'N') {
+        printf("Digite o valor para pesquisa: ");
+        if (pegar_tabela->colunas[escolha_coluna].tipo == 1) {
+            scanf(" %d", &valor_pesquisa_int);
+        } else {
+            printf("Essa coluna não é do tipo número.\n");
+            return;
+        }
     }
-    
-    
-    printf("Selecione uma das seguintes opções:\n 1 - Valores maior que o informado\n2 - Valores maior ou igual ao informado\n3 - Valores igual ao informado\n4 - Valores menor que o informado\n5 - Valores menor ou igual ao informado\n6 - Valores próximo ao informado (caso a coluna seja de string)\n");
+
+    printf("Selecione uma das seguintes opções:\n1 - Valores maiores que o informado\n2 - Valores maiores ou iguais ao informado\n3 - Valores iguais ao informado\n4 - Valores menores que o informado\n5 - Valores menores ou iguais ao informado\n6 - Valores próximo ao informado (caso a coluna seja de string)\n");
     int opcao_pesquisa;
+    
     printf("Escolha a opção de pesquisa: ");
-    scanf("%d", &opcao_pesquisa);
+    scanf(" %d", &opcao_pesquisa);
+    
+    for(int i = 0; i < pegar_tabela->numero_linha;i++){
+        switch (opcao_pesquisa) {
+            case 1:
+                // Valores maior que o informado
+                if (toupper(tipo_pesquisa) == 'S') {
+                    if (strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) > 0) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    }
+                } else if (toupper(tipo_pesquisa) == 'N') {
+                    int valor_tabela = atoi(pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    if (valor_tabela > valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                }
+                break;
+            case 2:
+                // Valores maiores ou iguais ao informado
+                if (toupper(tipo_pesquisa) == 'S') {
+                    if (strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) == 0) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    }
+                } else if (toupper(tipo_pesquisa) == 'N') {
+                    int valor_tabela = atoi(pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    if (valor_tabela >= valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                }
+                break;
+            
+            case 3:
+                // Valores iguais ao informado
+                if (toupper(tipo_pesquisa) == 'S') {
+                    if (strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) == 0) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    }
+                } else if (toupper(tipo_pesquisa) == 'N') {
+                    int valor_tabela = atoi(pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    if (valor_tabela == valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                }
+                break;
+            case 4:
+            // Valores menores
+                if (toupper(tipo_pesquisa) == 'S') {
+                    if (strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) < 0) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    }
+                } else if (toupper(tipo_pesquisa) == 'N') {
+                    int valor_tabela = atoi(pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    if (valor_tabela < valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                }
+                break;
+            case 5:
+            // Valores menores ou iguais ao informado
+                if (toupper(tipo_pesquisa) == 'S') {
+                    if (strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) <= 0) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    }
+                } else if (toupper(tipo_pesquisa) == 'N') {
+                    int valor_tabela = atoi(pegar_tabela->linhas[i].valores[escolha_coluna]);
+                    if (valor_tabela <= valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                }
+                break;
+            case 6:
+            // Valores próximo ao informado (caso a coluna seja de string)
+            if (toupper(tipo_pesquisa) == 'S') {
+                int valor_encontrado = 0;
+                for (int i = 0; i < pegar_tabela->numero_linha; i++) {
+                    if (strstr(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) != NULL) {
+                        printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
+                        valor_encontrado = 1;
+                    }
+                }
+                if(valor_encontrado){
+                    return;
+                }
+            }
+            else {
+                printf("Essa opção só é válida para pesquisa em strings.\n");
+            }
+            break;
+        default:
+            printf("Opção de pesquisa inválida.\n");
+            return;
+ 
+    }
 
-}
+       }
+}else{
+	int valor_pesquisa_int;
+        printf("Digite o valor para pesquisa: ");
+        scanf(" %d", &valor_pesquisa_int);
+        printf("Selecione uma das seguintes opções:\n1 - Valores maiores que o informado\n2 - Valores maiores ou iguais ao informado\n3 - Valores iguais ao informado\n4 - Valores menores que o informado\n5 - Valores menores ou iguais ao informado\n");
+        int opcao_pesquisa;
+        printf("Escolha a opção de pesquisa: ");
+        scanf(" %d", &opcao_pesquisa);
 
+        for (int i = 0; i < pegar_tabela->numero_linha; i++) {
+            int valor_tabela = pegar_tabela->linhas[i].id;
+            switch (opcao_pesquisa) {
+                case 1:
+                    // Valores maiores que o informado
+                    if (valor_tabela > valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                    break;
+                case 2:
+                    // Valores maiores ou iguais ao informado
+                    if (valor_tabela >= valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                    break;
+                case 3:
+                    // Valores iguais ao informado
+                    if (valor_tabela == valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                    break;
+                case 4:
+                    // Valores menores que o informado
+                    if (valor_tabela < valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                    break;
+                case 5:
+                    // Valores menores ou iguais ao informado
+                    if (valor_tabela <= valor_pesquisa_int) {
+                        printf("%d\n", valor_tabela);
+                    }
+                    break;
+                default:
+                    printf("Opção de pesquisa inválida.\n");
+                    return;
+            }
+        }
+    }
+        }
 int main() {
     int operador = 1;
 
     while (operador) {
-        printf("\nSelecione uma das seguintes opções:\n");
+        printf("\n----Selecione uma das seguintes opções:\n");
         printf("0 - Fechar programa\n1 - Criar tabela\n2 - Listar tabelas\n3 - Criar nova linha na tabela\n4 - Listar dados de uma tabela\n5 - Pesquisar valor em uma tabela\n6 - Apagar linha de uma tabela\n7 - Apagar uma tabela\n");
         
-        scanf("%d", &operador);
+        scanf(" %d", &operador);
         switch (operador) {
             case 1:
                 criar_tabela();
@@ -242,7 +391,7 @@ int main() {
                     if (pegar_tabela == NULL) printf("Tabela não existe.\n");
                     else listar_dados(pegar_tabela);
                 }
-                
+                break;
             case 5:
                 pesquisar_valor();
                 break;
