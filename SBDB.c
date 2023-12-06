@@ -12,7 +12,7 @@
 
 int main() {
     int operador = 1;
-
+    ler_arquivo_e_preencher_tabela();
     while (operador) {
         printf("\n----Selecione uma das seguintes opções:\n");
         printf("0 - Fechar programa\n1 - Criar tabela\n2 - Listar tabelas\n3 - Criar nova linha na tabela\n4 - Listar dados de uma tabela\n5 - Pesquisar valor em uma tabela\n6 - Apagar linha de uma tabela\n7 - Apagar uma tabela\n");
@@ -64,6 +64,7 @@ int main() {
                 apagar_tabela(nome_tabela_apagar);
                 break;
             case 0:
+                //inserir_dados_arquivo(pegar_tabela)
                 printf("Finalizando...\n");
                 break;
             default:
