@@ -10,7 +10,7 @@
 #define MAX_LINHA 100
 #define MAX_TAM_COLUNA 50
 #define ARQUIVO "arquivo.txt"
-
+/*
 void apagar_tabela_arquivo(char nome_tabela[MAX_TAM_COLUNA]) {
     FILE *arquivo = fopen(ARQUIVO, "r");
     if (arquivo == NULL) {
@@ -49,6 +49,7 @@ void apagar_tabela_arquivo(char nome_tabela[MAX_TAM_COLUNA]) {
         return;
     }printf("Tabela removida!!");
 }
+*/
 void apagar_linha(char nome_tabela[MAX_TAM_COLUNA], int id) {
     int indice_tabela = -1;
     Tabela *pegar_tabela = NULL;
