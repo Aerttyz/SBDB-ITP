@@ -92,6 +92,7 @@ void ler_arquivo_e_preencher_tabela() {
             token = strtok(NULL, "\t");
             coluna_atual++;
         }
+            coluna_atual--;
         nova_tabela.numero_coluna = coluna_atual;
         int linha_atual = 0;
         while (fgets(linha, sizeof(linha), arquivo)) {
