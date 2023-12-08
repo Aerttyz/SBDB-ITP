@@ -48,7 +48,7 @@ int main() {
             case 5:
                 pesquisar_valor();
                 break;
-            case 6:
+            case 6: ;
                 char nome_tabela_apagar_linha[MAX_TAM_COLUNA];
                 int id_linha_apagar;
                 printf("Informe o nome da tabela da qual deseja apagar a linha: ");
@@ -57,7 +57,7 @@ int main() {
                 scanf(" %d", &id_linha_apagar);
                 apagar_linha(nome_tabela_apagar_linha, id_linha_apagar);
                 break;
-            case 7:
+            case 7: ;
                 char nome_tabela_apagar[MAX_TAM_COLUNA];
                 printf("Informe o nome da tabela que deseja apagar: ");
                 scanf(" %[^\n]", nome_tabela_apagar);
