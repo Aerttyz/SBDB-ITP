@@ -1,4 +1,34 @@
-# SBDB-ITP
-<h3>Projeto de simulação de um sistema de banco de dados em C da disciplina introdução às técnicas de programação</h3>
+# SGDB-ITP
 
+## Projeto de simulação de um sistema de banco de dados em C da disciplina introdução às técnicas de programação
 
+Este projeto consiste em um sistema de banco de dados simples implementado em linguagem C, desenvolvido como parte do curso de Introdução às Técnicas de Programação.
+
+### Código-Fonte
+
+O código-fonte inclui funcionalidades como criação de tabelas, inserção de dados, listagem de tabelas, criação de novas linhas em tabelas, listagem de dados de uma tabela, pesquisa de valores em uma tabela, exclusão de linhas em uma tabela e exclusão de tabelas.
+
+### Principais Componentes (Header Files)
+
+- **delete.h:** Contém funções relacionadas à exclusão de tabelas e linhas.
+- **tabelas.h:** Define estruturas e funções para manipulação de tabelas, colunas e linhas.
+- **pesquisas.h:** Implementa funções para listar dados e pesquisar valores em tabelas.
+- **main.c:** O arquivo principal contendo a função main() que interage com o usuário através de um menu de opções.
+
+### Funcionalidades Principais
+
+- **Criação de Tabelas:** Permite a definição de novas tabelas com colunas e chave primária.
+- **Listagem de Tabelas:** Exibe todas as tabelas existentes.
+- **Criação de Linhas:** Adiciona novas linhas com dados em uma tabela específica.
+- **Listagem de Dados:** Exibe os dados de uma tabela selecionada.
+- **Pesquisa de Valores:** Permite a busca por valores específicos em uma tabela.
+- **Exclusão de Linhas:** Remove uma linha específica de uma tabela.
+- **Exclusão de Tabelas:** Remove uma tabela específica.
+
+### Execução
+
+O programa é executado através de um loop que exibe um menu de opções. O usuário pode escolher diferentes operações interativamente.
+
+### Finalização
+
+O programa encerra quando o usuário seleciona a opção de fechar (0).
