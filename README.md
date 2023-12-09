@@ -2,7 +2,7 @@
 
 ## Projeto de simulação de um sistema de banco de dados em C da disciplina introdução às técnicas de programação
 
-Este projeto consiste em um sistema de banco de dados simples implementado em linguagem C, desenvolvido como parte do curso de Introdução às Técnicas de Programação.
+Este projeto consiste em um sistema de banco de dados simples baseado no modelo relacional e implementado em linguagem C, desenvolvido como parte da disciplina de Introdução às Técnicas de Programação.
 
 ### Código-Fonte
 
