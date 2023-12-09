@@ -57,6 +57,7 @@ void pesquisar_valor() {
     }
 
     printf("Colunas disponíveis na tabela %s:\n", pegar_tabela->nome_tabela);
+    
     for (int i = 0; i < pegar_tabela->numero_coluna; i++) {
         printf("%d - %s\n", i, pegar_tabela->colunas[i].nome_coluna);
     }
@@ -64,8 +65,6 @@ void pesquisar_valor() {
     int escolha_coluna;
     printf("Selecione o número da coluna para a pesquisa: ");
     scanf(" %d", &escolha_coluna);
-
-    // Ajuste para mexer no índice da coluna
 
     if (escolha_coluna < 0 || escolha_coluna >= pegar_tabela->numero_coluna) {
         printf("Opção de coluna inválida.\n");
@@ -83,15 +82,18 @@ void pesquisar_valor() {
         if (toupper(tipo_pesquisa) == 'S') {
             printf("Digite o valor para pesquisa: ");
             scanf(" %[^\n]", valor_pesquisa);
-        } else if (toupper(tipo_pesquisa) == 'N') {
+        } 
+        else if (toupper(tipo_pesquisa) == 'N') {
             printf("Digite o valor para pesquisa: ");
             if (pegar_tabela->colunas[escolha_coluna].tipo == 1) {
                 scanf(" %d", &valor_pesquisa_int);
-            } else {
+            } 
+            else {
                 printf("Essa coluna não é do tipo número inteiro.\n");
                 return;
             }
-        } else if (toupper(tipo_pesquisa) == 'F') {
+        } 
+        else if (toupper(tipo_pesquisa) == 'F') {
             printf("Digite o valor para pesquisa: ");
             if (pegar_tabela->colunas[escolha_coluna].tipo == 1) {
                 scanf(" %lf", &valor_pesquisa_float);
@@ -213,7 +215,8 @@ void pesquisar_valor() {
                     if (valor_encontrado) {
                         return;
                     }
-                } else {
+                } 
+                else {
                     printf("Essa opção só é válida para pesquisa em strings.\n");
                 }
                 break;

@@ -10,46 +10,8 @@
 #define MAX_LINHA 100
 #define MAX_TAM_COLUNA 50
 #define ARQUIVO "arquivo.txt"
-/*
-void apagar_tabela_arquivo(char nome_tabela[MAX_TAM_COLUNA]) {
-    FILE *arquivo = fopen(ARQUIVO, "r");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo\n");
-        return;
-    }
-    FILE *temp_arquivo = fopen("temp.txt", "w");
-    if (temp_arquivo == NULL) {
-        printf("Erro ao criar arquivo temp\n");
-        fclose(arquivo);
-        return;
-    }
-    char linha[1000];
-    int apagar = 0;
-    //enquanto houver tabelas corre no while;
-    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        if (strstr(linha, nome_tabela) != NULL) {
-            apagar = 1;
-            continue;
-        }
-        if (apagar) {
-            if (linha[0] == '\n') {
-                apagar = 0;
-                continue;
-            }continue;
-        }
-        fprintf(temp_arquivo, "%s", linha);
-    }fclose(arquivo);
-    fclose(temp_arquivo);
-    if (remove(ARQUIVO) != 0) {
-        printf("Erro ao apagar o arquivo original.\n");
-        return;
-    }
-    if (rename("temp.txt", ARQUIVO) != 0) {
-        printf("Erro ao renomear o arquivo temporário.\n");
-        return;
-    }printf("Tabela removida!!");
-}
-*/
+
+
 void apagar_linha(char nome_tabela[MAX_TAM_COLUNA], int id) {
     int indice_tabela = -1;
     Tabela *pegar_tabela = NULL;
@@ -73,11 +35,13 @@ void apagar_linha(char nome_tabela[MAX_TAM_COLUNA], int id) {
                 pegar_tabela->linhas[i] = pegar_tabela->linhas[i + 1];
             }
             pegar_tabela->numero_linha--;
+            //abre o arquivo;
             FILE *arquivo = fopen(ARQUIVO, "w");
             if (arquivo == NULL) {
                 printf("Erro ao abrir o arquivo.\n");
                 return;
             }
+            //for que procura por todas as tabelas;
             for (int i = 0; i < numero_tabela; i++) {
                 if (i == indice_tabela) {
                     fprintf(arquivo, "Tabela: %s\n", pegar_tabela->nome_tabela);
@@ -100,10 +64,12 @@ void apagar_linha(char nome_tabela[MAX_TAM_COLUNA], int id) {
 
             fclose(arquivo);
             printf("Linha com ID %d removida da tabela '%s' com sucesso.\n", id, nome_tabela);
-        } else {
+        }
+        else {
             printf("Linha com ID %d não encontrada na tabela '%s'.\n", id, nome_tabela);
         }
-    } else {
+    } 
+    else {
         printf("Tabela '%s' não encontrada.\n", nome_tabela);
     }
 }
@@ -127,7 +93,8 @@ void apagar_tabela(char nome_tabela[MAX_TAM_COLUNA]) {
         numero_tabela--;
         apagar_tabela_arquivo(nome_tabela);
         printf("Tabela '%s' removida com sucesso.\n", nome_tabela);
-    } else {
+    } 
+    else {
         printf("Tabela '%s' não encontrada.\n", nome_tabela);
     }
 }
