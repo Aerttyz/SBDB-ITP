@@ -27,8 +27,10 @@ O código-fonte inclui funcionalidades como criação de tabelas, inserção de 
 
 ### Execução
 
-O programa deve ser compilado com o seguinte comando:  ```bash gcc SGBD.c tabelas.c delete.c pesquisas.c -o --nome_do_arquivo_executável-- ```
-Seguindo de ```bash ./--nome_do_arquivo_executável-- ```
+O programa deve ser compilado com o seguinte comando:  
+```bash gcc SGBD.c tabelas.c delete.c pesquisas.c -o --nome_do_arquivo_executável-- ```
+Seguindo de 
+```bash ./--nome_do_arquivo_executável-- ```
 
 O programa é executado através de um loop que exibe um menu de opções. O usuário pode escolher diferentes operações interativamente.
 
