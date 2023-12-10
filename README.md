@@ -10,10 +10,10 @@ O código-fonte inclui funcionalidades como criação de tabelas, inserção de 
 
 ### Principais Componentes (Header Files)
 
-- **delete.h:** Contém funções relacionadas à exclusão de tabelas e linhas.
-- **tabelas.h:** Define estruturas e funções para manipulação de tabelas, colunas e linhas.
-- **pesquisas.h:** Implementa funções para listar dados e pesquisar valores em tabelas.
-- **main.c:** O arquivo principal contendo a função main() que interage com o usuário através de um menu de opções.
+- **delete.c:** Contém funções relacionadas à exclusão de tabelas e linhas.
+- **tabelas.c:** Define estruturas e funções para manipulação de tabelas, colunas e linhas.
+- **pesquisas.c:** Implementa funções para listar dados e pesquisar valores em tabelas.
+- **SGBD.c:** O arquivo principal contendo a função main() que interage com o usuário através de um menu de opções.
 
 ### Funcionalidades Principais
 
@@ -26,6 +26,9 @@ O código-fonte inclui funcionalidades como criação de tabelas, inserção de 
 - **Exclusão de Tabelas:** Remove uma tabela específica.
 
 ### Execução
+
+O programa deve ser compilado com o seguinte comando: gcc SGBD.c tabelas.c delete.c pesquisas.c -o --nome_do_arquivo_executável--
+Seguindo de ./--nome_do_arquivo_executável--
 
 O programa é executado através de um loop que exibe um menu de opções. O usuário pode escolher diferentes operações interativamente.
 
