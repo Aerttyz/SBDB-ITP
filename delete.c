@@ -3,6 +3,8 @@
 #include "tabelas.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include "delete.h"
 #define MAX_COLUNA 20
 #define MAX_LINHA 100
@@ -59,19 +61,30 @@ void apagar_linha(char nome_tabela[MAX_TAM_COLUNA], int id) {
                     }
                     fprintf(arquivo, "\n");
                 } else {
-                    //Grava as demais tabelas;
+                    // Grava as demais tabelas
                     fprintf(arquivo, "Tabela: %s\n", tabelas[i].nome_tabela);
+                    // Grava as colunas
+                    for (int j = 0; j < tabelas[i].numero_coluna; j++) {
+                        fprintf(arquivo, "%s\t", tabelas[i].colunas[j].nome_coluna);
+                    }
+                    fprintf(arquivo, "\n");
+                    // Grava as linhas
+                    for (int j = 0; j < tabelas[i].numero_linha; j++) {
+                        fprintf(arquivo, "%d\t", tabelas[i].linhas[j].id);
+                        for (int k = 1; k < tabelas[i].numero_coluna; k++) {
+                            fprintf(arquivo, "%s\t", tabelas[i].linhas[j].valores[k]);
+                        }
+                        fprintf(arquivo, "\n");
+                    }
+                    fprintf(arquivo, "\n");
                 }
             }
-
             fclose(arquivo);
             printf("Linha com ID %d removida da tabela '%s' com sucesso.\n", id, nome_tabela);
-        }
-        else {
+        }else {
             printf("Linha com ID %d não encontrada na tabela '%s'.\n", id, nome_tabela);
         }
-    } 
-    else {
+    } else {
         printf("Tabela '%s' não encontrada.\n", nome_tabela);
     }
 }

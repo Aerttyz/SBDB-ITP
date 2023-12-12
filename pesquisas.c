@@ -91,7 +91,7 @@ void pesquisar_valor() {
     int opcao_pesquisa;
     printf("Escolha a opção de pesquisa: ");
     scanf(" %d", &opcao_pesquisa);
-
+    printf("Valores encontraos:\n");
     for (int i = 0; i < pegar_tabela->numero_linha; i++) {
         switch (opcao_pesquisa) {
         case 1:
@@ -99,6 +99,7 @@ void pesquisar_valor() {
             if ((toupper(tipo_pesquisa) == 'S' && strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) > 0) ||
                 (toupper(tipo_pesquisa) == 'N' && atoi(pegar_tabela->linhas[i].valores[escolha_coluna]) > valor_pesquisa_int) ||
                 (toupper(tipo_pesquisa) == 'F' && atof(pegar_tabela->linhas[i].valores[escolha_coluna]) > valor_pesquisa_float))
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         case 2:
@@ -106,6 +107,7 @@ void pesquisar_valor() {
             if ((toupper(tipo_pesquisa) == 'S' && strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) == 0) ||
                 (toupper(tipo_pesquisa) == 'N' && atoi(pegar_tabela->linhas[i].valores[escolha_coluna]) >= valor_pesquisa_int) ||
                 (toupper(tipo_pesquisa) == 'F' && atof(pegar_tabela->linhas[i].valores[escolha_coluna]) >= valor_pesquisa_float))
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         case 3:
@@ -113,6 +115,7 @@ void pesquisar_valor() {
             if ((toupper(tipo_pesquisa) == 'S' && strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) == 0) ||
                 (toupper(tipo_pesquisa) == 'N' && atoi(pegar_tabela->linhas[i].valores[escolha_coluna]) == valor_pesquisa_int) ||
                 (toupper(tipo_pesquisa) == 'F' && atof(pegar_tabela->linhas[i].valores[escolha_coluna]) == valor_pesquisa_float))
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         case 4:
@@ -120,6 +123,7 @@ void pesquisar_valor() {
             if ((toupper(tipo_pesquisa) == 'S' && strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) < 0) ||
                 (toupper(tipo_pesquisa) == 'N' && atoi(pegar_tabela->linhas[i].valores[escolha_coluna]) < valor_pesquisa_int) ||
                 (toupper(tipo_pesquisa) == 'F' && atof(pegar_tabela->linhas[i].valores[escolha_coluna]) < valor_pesquisa_float))
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         case 5:
@@ -127,11 +131,13 @@ void pesquisar_valor() {
             if ((toupper(tipo_pesquisa) == 'S' && strcmp(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) <= 0) ||
                 (toupper(tipo_pesquisa) == 'N' && atoi(pegar_tabela->linhas[i].valores[escolha_coluna]) <= valor_pesquisa_int) ||
                 (toupper(tipo_pesquisa) == 'F' && atof(pegar_tabela->linhas[i].valores[escolha_coluna]) <= valor_pesquisa_float))
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         case 6:
             // Valores próximo ao informado (para strings)
             if (toupper(tipo_pesquisa) == 'S' && strstr(pegar_tabela->linhas[i].valores[escolha_coluna], valor_pesquisa) != NULL)
+                 
                 printf("%s\n", pegar_tabela->linhas[i].valores[escolha_coluna]);
             break;
         default:
@@ -141,6 +147,6 @@ void pesquisar_valor() {
     }
 }
 
-}
+
 
 
